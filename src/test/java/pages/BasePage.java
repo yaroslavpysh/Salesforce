@@ -13,18 +13,12 @@ import java.time.Duration;
 public abstract class BasePage {
     WebDriver driver;
     WebDriverWait wait;
-    public static final String BASE_URL = "https://www.saucedemo.com/";
-    private final By CART = By.id("shopping_cart_container");
+    public static final String BASE_URL = "https://company54-dev-ed.my.salesforce.com/";
+
 
     public BasePage(WebDriver driver) {
         this.driver = driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(1));
-    }
-
-    public void clickCart() {
-        driver.findElement(CART).click();
-//        clickJS(CART);
-
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public boolean waitForVisibility(By locator) {
@@ -44,11 +38,5 @@ public abstract class BasePage {
             }
         };
     }
-
-//    public void clickJS(By locator){
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(locator));
-//
-//    }  Не срабатывает
-
 
 }
