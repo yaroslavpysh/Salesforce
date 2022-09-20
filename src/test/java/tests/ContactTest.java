@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 
 public class ContactTest extends BaseTest{
 
-    @Test
+    @Test(description = "Checking filling of fields on 'Account page'")
     public void contactCreation(){
         loginPage.open();
         loginPage.login("yaroslav_pysh@company.sandbox", "password11");

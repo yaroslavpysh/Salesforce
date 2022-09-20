@@ -1,7 +1,9 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.testng.annotations.Test;
 import wrappers.DropDown;
 import wrappers.Input;
 import wrappers.TextArea;
@@ -16,15 +18,18 @@ public class CreateAccountPage extends BasePage {
         super(driver);
     }
 
+    @Step("Opening 'Account Page'")
     public void open() {
         driver.get(BASE_URL + "lightning/o/Account/list?filterName=Recent");
-        driver.findElement(ACCOUNTS_BUTTON).click();
+
+//        driver.findElement(ACCOUNTS_BUTTON).click();
     }
 
     public boolean isOpened() {
         return waitForVisibility(SUBTITLE);
     }
 
+    @Step("Filling fields on 'Account Page'")
     public void create(String accountName, String phone, String fax, String accountNumber, String webSite, String accountSite, String type,
                        String ownership, String industry, String sicCode, String billingStreet, String shippingStreet,
                        String billingCity, String slaExpirationDate, String customerPriority, String upsellOpportunity, String active, String description) {

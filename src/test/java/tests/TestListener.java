@@ -1,6 +1,7 @@
 package tests;
 
 
+import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
@@ -9,7 +10,9 @@ import java.util.concurrent.TimeUnit;
 
 public class TestListener implements ITestListener {
 
-        @Override
+
+
+    @Override
         public void onTestStart(ITestResult iTestResult) {
             System.out.println(String.format("======================================== STARTING TEST %s ========================================", iTestResult.getName()));
         }
@@ -20,16 +23,24 @@ public class TestListener implements ITestListener {
                     getExecutionTime(iTestResult)));
         }
 
-        @Override
-        public void onTestFailure(ITestResult iTestResult) {
-            System.out.println(String.format("======================================== FAILED TEST %s Duration: %ss ========================================", iTestResult.getName(),
-                    getExecutionTime(iTestResult)));
+    @Override
+    public void onTestFailure(ITestResult iTestResult) {
+        System.out.println(String.format("======================================== FAILED TEST %s Duration: %ss ========================================", iTestResult.getName(),
+                getExecutionTime(iTestResult)));
+        WebDriver driver = (WebDriver)iTestResult.getTestContext().getAttribute("driver");
+        if(driver!=null){
+            AllureUtils.takeScreenshot(driver);
         }
+    }
 
-        @Override
-        public void onTestSkipped(ITestResult iTestResult) {
-            System.out.println(String.format("======================================== SKIPPING TEST %s ========================================", iTestResult.getName()));
+    @Override
+    public void onTestSkipped(ITestResult iTestResult) {
+        System.out.println(String.format("======================================== SKIPPING TEST %s ========================================", iTestResult.getName()));
+        WebDriver driver = (WebDriver)iTestResult.getTestContext().getAttribute("driver");
+        if(driver!=null){
+            AllureUtils.takeScreenshot(driver);
         }
+    }
 
         @Override
         public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {

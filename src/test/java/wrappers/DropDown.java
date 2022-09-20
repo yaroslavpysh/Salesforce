@@ -1,6 +1,7 @@
 package wrappers;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
 public class DropDown {
@@ -12,11 +13,14 @@ public class DropDown {
         this.driver = driver;
 
     }
+    //        driver.findElement(By.xpath(String.format("//label[text()='%s']/..//span[text()='%s']", label, text))).click();
+    //        driver.findElement(By.xpath(String.format("//label[text()='%s']/..//button", label))).click();
 
     public void select(String text) {
-        driver.findElement(By.xpath(String.format("//label[text()='%s']/..//button", label))).click();
-        driver.findElement(By.xpath(String.format("//label[text()='%s']/..//span[text()='%s']", label, text))).click();
-
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath(String.format
+                ("//label[text()='%s']/..//button", label))));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", driver.findElement(By.xpath(String.format
+                ("//label[text()='%s']/..//span[text()='%s']", label, text))));
 
     }
 }
