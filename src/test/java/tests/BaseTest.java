@@ -36,7 +36,6 @@ public class BaseTest {
             ChromeOptions options = new ChromeOptions();
             options.addArguments("--headless");
             driver = new ChromeDriver(options);//не забывать (options)
-
         } else if(browser.equals("firefox")){
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
@@ -44,12 +43,10 @@ public class BaseTest {
             driver = new FirefoxDriver(options);
         }
         testContext.setAttribute("driver", driver);
-
-
         WebDriverWait wait = new WebDriverWait(driver, 10);
 
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
         createContactPage = new CreateContactPage(driver);
         homePage = new HomePage(driver);
