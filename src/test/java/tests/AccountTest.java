@@ -1,21 +1,20 @@
 package tests;
 
+import dto.Account;
 import org.testng.annotations.Test;
+import pages.CreateAccountPage;
 
 
 public class AccountTest extends BaseTest {
 
-    @Test
+    @Test(description = "Checking filling of fields on 'Account page'")
     public void accountCreation() {
         loginPage.open();
         loginPage.login("yaroslav_pysh@company.sandbox", "password11");
         createAccountPage.open();
         createAccountPage.isOpened();
-        createAccountPage.create("Yaroslav", "+375266666666", "+375266666666", "2555",
-                "www.bla.com", "5", "Prospect", "Public", "Education", "234",
-                "Nezavis", "Prospect", "Minsk", "9/27/2023", "Low", "No",
-                "No", "bablablablabla");
-//        Assert.assertTrue();
+        Account account = new Account();
+        new CreateAccountPage(driver).create(account);
 
     }
 }

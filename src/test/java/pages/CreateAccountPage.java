@@ -1,11 +1,14 @@
 package pages;
-
+import dto.Account;
+import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import wrappers.DropDown;
 import wrappers.Input;
 import wrappers.TextArea;
 
+@Log4j2
 public class CreateAccountPage extends BasePage {
     private final By SUBTITLE = By.xpath("//span[@class='slds-var-p-right_x-small' and text()='Accounts']");
     private final By ACCOUNTS_BUTTON = By.xpath("//a[@title='Accounts']/span");
@@ -16,38 +19,40 @@ public class CreateAccountPage extends BasePage {
         super(driver);
     }
 
+    @Step("Opening 'Account Page'")
     public void open() {
+        log.info("Open page Account page");
         driver.get(BASE_URL + "lightning/o/Account/list?filterName=Recent");
-        driver.findElement(ACCOUNTS_BUTTON).click();
+
+//        driver.findElement(ACCOUNTS_BUTTON).click();
     }
 
     public boolean isOpened() {
         return waitForVisibility(SUBTITLE);
     }
 
-    public void create(String accountName, String phone, String fax, String accountNumber, String webSite, String accountSite, String type,
-                       String ownership, String industry, String sicCode, String billingStreet, String shippingStreet,
-                       String billingCity, String slaExpirationDate, String customerPriority, String upsellOpportunity, String active, String description) {
-
+    @Step("Creating new account: {account.accountName}")
+        public void create(Account account){
+        log.info("Creating account: '{}'", account.getAccountName());
         driver.findElement(NEW_BUTTON).click();
-        new Input("Account Name", driver).write(accountName);
-        new Input("Phone", driver).write(phone);
-        new Input("Fax", driver).write(fax);
-        new Input("Account Number", driver).write(accountNumber);
-        new Input("Website", driver).write(webSite);
-        new Input("Account Site", driver).write(accountSite);
-        new DropDown("Type", driver).select(type);
-        new DropDown("Ownership", driver).select(ownership);
-        new DropDown("Industry", driver).select(industry);
-        new Input("SIC Code", driver).write(sicCode);
-        new TextArea("Billing Street", driver).write(billingStreet);
-        new TextArea("Shipping Street", driver).write(shippingStreet);
-        new Input("Billing City", driver).write(billingCity);
-        new DropDown("Customer Priority", driver).select(customerPriority);
-        new Input("SLA Expiration Date", driver).write(slaExpirationDate);
-        new DropDown("Upsell Opportunity", driver).select(upsellOpportunity);
-        new DropDown("Active", driver).select(active);
-        new TextArea("Description", driver).write(description);
+        new Input("Account Name", driver).write(account.getAccountName());
+        new Input("Phone", driver).write(account.getPhone());
+        new Input("Fax", driver).write(account.getFax());
+        new Input("Account Number", driver).write(account.getAccountNumber());
+        new Input("Website", driver).write(account.getWebSite());
+        new Input("Account Site", driver).write(account.getAccountSite());
+        new DropDown("Type", driver).select(account.getType());
+        new DropDown("Ownership", driver).select(account.getOwnership());
+        new DropDown("Industry", driver).select(account.getIndustry());
+        new Input("SIC Code", driver).write(account.getSicCode());
+        new TextArea("Billing Street", driver).write(account.getBillingCity());
+        new TextArea("Shipping Street", driver).write(account.getShippingStreet());
+        new Input("Billing City", driver).write(account.getBillingCity());
+        new DropDown("Customer Priority", driver).select(account.getCustomerPriority());
+        new Input("SLA Expiration Date", driver).write(account.getSlaExpirationDate());
+        new DropDown("Upsell Opportunity", driver).select(account.getUpsellOpportunity());
+        new DropDown("Active", driver).select(account.getActive());
+        new TextArea("Description", driver).write(account.getDescription());
 
     }
 
